@@ -47,14 +47,13 @@ def main():
         'Если пользователем введена уже короткая ссылка,то возвращает количество переходов по ней.')
     parser.add_argument('link', help='Ваша ссылка')
     args = parser.parse_args()
-    user_link = args.link
     load_dotenv()
     secret_token = os.environ['BITLY_TOKEN']
     try:
-        if is_bitlink(secret_token, user_link):
-            print("Количество переходов по ссылке: ", count_clicks(secret_token, user_link))
+        if is_bitlink(secret_token, args.link):
+            print("Количество переходов по ссылке: ", count_clicks(secret_token, args.link))
         else:
-            print('Битлинк ', shorten_link(secret_token, user_link))
+            print('Битлинк ', shorten_link(secret_token, args.link))
     except requests.exceptions.HTTPError as err:
         print(err)
 
